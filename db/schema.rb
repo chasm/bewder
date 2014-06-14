@@ -11,20 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614071704) do
+ActiveRecord::Schema.define(version: 20140614072952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "affinities", force: true do |t|
+    t.string   "feeling"
+    t.integer  "user_id"
+    t.integer  "pet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "affinities", ["pet_id"], name: "index_affinities_on_pet_id", using: :btree
+  add_index "affinities", ["user_id"], name: "index_affinities_on_user_id", using: :btree
 
   create_table "pets", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "pets_users", id: false, force: true do |t|
-    t.integer "pet_id",  null: false
-    t.integer "user_id", null: false
   end
 
   create_table "users", force: true do |t|
